@@ -1,9 +1,11 @@
 package main
 
 import (
+	"net/url"
 	"slices"
 
 	"github.com/andlabs/ui"
+	"github.com/skratchdot/open-golang/open"
 )
 
 var (
@@ -208,8 +210,8 @@ func start() {
 	})
 	layout := [][]rune{
 		[]rune("ㅂㅈㄷㄱㅅㅛㅕㅑㅐㅔ"),
-		[]rune("ㅁㄴㅇㄹㅎㅗㅓㅏㅣ"),
-		[]rune("ㅋㅌㅊㅍㅠㅜㅡ"),
+		[]rune("ㅁㄴㅇㄹㅎㅗㅓㅏㅣㅒ"),
+		[]rune("ㅋㅌㅊㅍㅠㅜㅡㅖ"),
 	}
 	tb := ui.NewEntry()
 	kb := ui.NewVerticalBox()
@@ -226,8 +228,39 @@ func start() {
 		row.Append(ui.NewHorizontalSeparator(), true)
 		kb.Append(row, true)
 	}
-
 	kb.Append(tb, true)
+	bus := ui.NewHorizontalBox()
+	bus.Append(ui.NewHorizontalSeparator(), true)
+	{
+		bu := ui.NewButton("Hanja")
+		bu.OnClicked(func(button *ui.Button) {
+			text := tb.Text()
+			if len(text) > 0 {
+				hangul := url.PathEscape(text)
+				open.Start(`https://koreanhanja.app/` + hangul)
+			}
+		})
+		bus.Append(bu, false)
+	}
+	{
+		bu := ui.NewButton("English")
+		bu.OnClicked(func(button *ui.Button) {
+			text := tb.Text()
+			if len(text) > 0 {
+				params := url.Values{
+					"source": []string{"osdd"},
+					"sl":     []string{"ko"},
+					"tl":     []string{"en"},
+					"text":   []string{text},
+					"op":     []string{"translate"},
+				}
+				open.Start(`https://translate.google.de/?` + params.Encode())
+			}
+		})
+		bus.Append(bu, false)
+	}
+	bus.Append(ui.NewHorizontalSeparator(), true)
+	kb.Append(bus, true)
 	win.SetChild(kb)
 	win.Show()
 }
