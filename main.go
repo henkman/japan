@@ -4,7 +4,7 @@ import (
 	"net/url"
 	"slices"
 
-	"github.com/andlabs/ui"
+	ui "github.com/libui-ng/golang-ui"
 	"github.com/skratchdot/open-golang/open"
 )
 
@@ -262,6 +262,7 @@ func start() {
 	bus.Append(ui.NewHorizontalSeparator(), true)
 	kb.Append(bus, true)
 	win.SetChild(kb)
+	SetIconFromFile(win, "./Pictogrammers-Material-Syllabary-hangul.128.png")
 	win.Show()
 }
 
