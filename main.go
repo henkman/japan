@@ -65,7 +65,7 @@ func onClick(button *ui.Button, entry *ui.Entry) {
 	first, second, third := toJamo(last)
 	if third > 0 {
 		switch cur {
-		case 'ㅏ', 'ㅐ', 'ㅑ', 'ㅒ', 'ㅓ', 'ㅔ', 'ㅕ', 'ㅖ', 'ㅗ', 'ㅜ', 'ㅡ', 'ㅣ':
+		case 'ㅏ', 'ㅐ', 'ㅑ', 'ㅒ', 'ㅓ', 'ㅔ', 'ㅕ', 'ㅖ', 'ㅗ', 'ㅛ', 'ㅜ', 'ㅠ', 'ㅡ', 'ㅣ':
 			text = text[:len(text)-1]
 			type Composite struct {
 				Is            bool
