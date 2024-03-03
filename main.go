@@ -62,6 +62,7 @@ func onClick(button *ui.Button, entry *ui.Entry) {
 		entry.SetText(string(text) + key)
 		return
 	}
+
 	first, second, third := toJamo(last)
 	if third > 0 {
 		switch cur {
@@ -199,7 +200,7 @@ func onClick(button *ui.Button, entry *ui.Entry) {
 }
 
 func start() {
-	win := ui.NewWindow("chapan 자판", 450, 120, true)
+	win := ui.NewWindow("자판", 450, 120, true)
 	win.OnClosing(func(*ui.Window) bool {
 		ui.Quit()
 		return true

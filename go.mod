@@ -1,4 +1,4 @@
-module chapan
+module japan
 
 go 1.22.0
 
