@@ -200,7 +200,7 @@ func onClick(button *ui.Button, entry *ui.Entry) {
 }
 
 func start() {
-	win := ui.NewWindow("자판", 450, 120, true)
+	win := ui.NewWindow("자판 - 字板", 450, 120, true)
 	win.OnClosing(func(*ui.Window) bool {
 		ui.Quit()
 		return true
