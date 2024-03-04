@@ -1,6 +1,6 @@
 module japan
 
-go 1.22.0
+go 1.22
 
 require (
 	github.com/libui-ng/golang-ui v0.0.0-20230331052320-13dec0981460 // indirect
