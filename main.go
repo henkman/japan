@@ -260,6 +260,17 @@ func start() {
 		})
 		bus.Append(bu, false)
 	}
+	{
+		bu := ui.NewButton("Conjugate")
+		bu.OnClicked(func(button *ui.Button) {
+			text := tb.Text()
+			if len(text) > 0 {
+				hangul := url.PathEscape(text)
+				open.Start(`https://koreanverb.app/?search=` + hangul)
+			}
+		})
+		bus.Append(bu, false)
+	}
 	bus.Append(ui.NewHorizontalSeparator(), true)
 	kb.Append(bus, true)
 	win.SetChild(kb)
