@@ -1,9 +1,14 @@
 package main
 
 import (
+	"fmt"
 	"net/url"
+	"os"
 	"slices"
 
+	htgotts "github.com/hegedustibor/htgo-tts"
+	"github.com/hegedustibor/htgo-tts/handlers"
+	"github.com/hegedustibor/htgo-tts/voices"
 	ui "github.com/libui-ng/golang-ui"
 	"github.com/skratchdot/open-golang/open"
 )
@@ -202,6 +207,9 @@ func onClick(button *ui.Button, entry *ui.Entry) {
 func start() {
 	win := ui.NewWindow("자판 - 字板", 450, 120, true)
 	win.OnClosing(func(*ui.Window) bool {
+		if err := os.RemoveAll("./audio"); err != nil {
+			fmt.Println(err)
+		}
 		ui.Quit()
 		return true
 	})
@@ -232,6 +240,17 @@ func start() {
 	kb.Append(tb, true)
 	bus := ui.NewHorizontalBox()
 	bus.Append(ui.NewHorizontalSeparator(), true)
+	{
+		bu := ui.NewButton("Listen")
+		bu.OnClicked(func(button *ui.Button) {
+			text := tb.Text()
+			if len(text) > 0 {
+				speech := htgotts.Speech{Folder: "audio", Language: voices.Korean, Handler: &handlers.Native{}}
+				speech.Speak(text)
+			}
+		})
+		bus.Append(bu, false)
+	}
 	{
 		bu := ui.NewButton("Hanja")
 		bu.OnClicked(func(button *ui.Button) {
